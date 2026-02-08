@@ -17,7 +17,7 @@ st.set_page_config(
     layout="wide"
 )
 
-st.title("🤖Machine Learning Classification Models")
+st.title("🤖 Machine Learning Classification Models")
 st.markdown("### Interactive Model Evaluation Dashboard")
 st.markdown("---")
 
@@ -48,7 +48,7 @@ if uploaded_file is not None:
     try:
         df = pd.read_csv(uploaded_file)
         
-        st.success(f"Data uploaded successfully! Shape: {df.shape}")
+        st.success(f"✅ Data uploaded successfully! Shape: {df.shape}")
         
         with st.expander("📊 View Data Preview"):
             st.dataframe(df.head(10))
@@ -60,21 +60,27 @@ if uploaded_file is not None:
             y_test = df.iloc[:, -1]
             
             model_path = os.path.join("model", model_options[selected_model_name])
+            scaler_path = os.path.join("model", "scaler.pkl")
             
-            if os.path.exists(model_path):
+            if os.path.exists(model_path) and os.path.exists(scaler_path):
                 with open(model_path, 'rb') as f:
                     model = pickle.load(f)
                 
+                with open(scaler_path, 'rb') as f:
+                    scaler = pickle.load(f)
+                
                 st.success(f"✅ {selected_model_name} loaded successfully!")
                 
-                y_pred = model.predict(X_test)
+                # Scale the features before prediction
+                X_test_scaled = scaler.transform(X_test)
+                y_pred = model.predict(X_test_scaled)
                 
                 try:
                     if len(np.unique(y_test)) == 2:
-                        y_pred_proba = model.predict_proba(X_test)[:, 1]
+                        y_pred_proba = model.predict_proba(X_test_scaled)[:, 1]
                         auc_score = roc_auc_score(y_test, y_pred_proba)
                     else:
-                        y_pred_proba = model.predict_proba(X_test)
+                        y_pred_proba = model.predict_proba(X_test_scaled)
                         auc_score = roc_auc_score(y_test, y_pred_proba, multi_class='ovr', average='weighted')
                 except:
                     auc_score = "N/A"
@@ -102,24 +108,32 @@ if uploaded_file is not None:
                 
                 st.markdown("---")
                 
-                st.markdown("### 🎯 Confusion Matrix")
-                cm = confusion_matrix(y_test, y_pred)
+                col1, col2 = st.columns(2)
                 
-                fig, ax = plt.subplots(figsize=(8, 6))
-                sns.heatmap(cm, annot=True, fmt='d', cmap='Blues', ax=ax)
-                ax.set_xlabel('Predicted Labels')
-                ax.set_ylabel('True Labels')
-                ax.set_title(f'Confusion Matrix - {selected_model_name}')
-                st.pyplot(fig)
+                with col1:
+                    st.markdown("### 🎯 Confusion Matrix")
+                    cm = confusion_matrix(y_test, y_pred)
+                    
+                    fig, ax = plt.subplots(figsize=(5, 4))
+                    sns.heatmap(cm, annot=True, fmt='d', cmap='Blues', ax=ax, cbar_kws={'shrink': 0.8})
+                    ax.set_xlabel('Predicted', fontsize=10)
+                    ax.set_ylabel('True', fontsize=10)
+                    ax.set_title(f'Confusion Matrix', fontsize=11)
+                    plt.tight_layout()
+                    st.pyplot(fig)
                 
-                st.markdown("### 📋 Classification Report")
-                report = classification_report(y_test, y_pred, output_dict=True)
-                report_df = pd.DataFrame(report).transpose()
-                st.dataframe(report_df.style.background_gradient(cmap='RdYlGn'))
+                with col2:
+                    st.markdown("### 📋 Classification Report")
+                    report = classification_report(y_test, y_pred, output_dict=True)
+                    report_df = pd.DataFrame(report).transpose()
+                    st.dataframe(report_df.style.background_gradient(cmap='RdYlGn'), height=300)
                 
             else:
-                st.error(f"❌ Model file not found: {model_path}")
-                st.info("Please ensure the model files are in the 'model' directory.")
+                if not os.path.exists(model_path):
+                    st.error(f"❌ Model file not found: {model_path}")
+                if not os.path.exists(scaler_path):
+                    st.error(f"❌ Scaler file not found: {scaler_path}")
+                st.info("Please ensure the model files and scaler.pkl are in the 'model' directory.")
         else:
             st.error("❌ Dataset must have at least 2 columns (features and target)")
             
@@ -147,3 +161,4 @@ else:
 
 st.markdown("---")
 st.markdown("**ML Classification Assignment** | Built with Streamlit")
+
