@@ -96,6 +96,29 @@ The project includes:
 
 ## Project Structure
 
+```
+ML_ASSIGN2/
+│
+├── data/                          # Dataset directory
+│   ├── train.csv                  # Training dataset (2000 instances)
+│   └── test_data.csv             # Test dataset for predictions
+│
+├── model/                         # Model training and saved models
+│   ├── train_models.py           # Script to train all 6 models
+│   ├── analyze_data.py           # Data analysis script
+│   ├── logistic_regression.pkl   # Trained Logistic Regression model
+│   ├── decision_tree.pkl         # Trained Decision Tree model
+│   ├── knn.pkl                   # Trained K-Nearest Neighbors model
+│   ├── naive_bayes.pkl           # Trained Naive Bayes model
+│   ├── random_forest.pkl         # Trained Random Forest model
+│   ├── xgboost_model.pkl         # Trained XGBoost model
+│   ├── scaler.pkl                # Feature scaler for preprocessing
+│   └── model_results.csv         # Training results and metrics
+│
+├── app.py                         # Streamlit web application
+├── requirements.txt               # Python dependencies
+└── README.md                      # Project documentation
+```
 
 ## Installation & Setup
 
