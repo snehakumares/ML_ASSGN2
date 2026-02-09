@@ -234,7 +234,7 @@ if uploaded_file is not None:
                     st.markdown("### 🎯 Confusion Matrix")
                     cm = confusion_matrix(y_test, y_pred)
                     
-                    fig, ax = plt.subplots(figsize=(6, 6))
+                    fig, ax = plt.subplots(figsize=(6, 5))
                     sns.heatmap(
                         cm,
                         annot=True,
@@ -264,7 +264,7 @@ if uploaded_file is not None:
                             cmap='RdYlGn',
                             subset=['precision', 'recall', 'f1-score']
                         ).format("{:.4f}"),
-                        height=450,
+                        height=400,
                         use_container_width=True
                     )
                 
@@ -336,4 +336,3 @@ with col2:
         <p>Mobile Price Range Prediction | Built with Streamlit</p>
     </div>
     """, unsafe_allow_html=True)
-
