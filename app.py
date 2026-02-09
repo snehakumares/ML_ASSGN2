@@ -22,6 +22,12 @@ st.set_page_config(
 # Custom CSS for professional styling
 st.markdown("""
 <style>
+    /* Wider sidebar */
+    [data-testid="stSidebar"] {
+        min-width: 350px;
+        max-width: 350px;
+    }
+    
     .main-header {
         font-size: 2.5rem;
         font-weight: 700;
@@ -331,3 +337,5 @@ with col2:
         <p>Mobile Price Range Prediction | Built with Streamlit</p>
     </div>
     """, unsafe_allow_html=True)
+
+# Made with Bob
