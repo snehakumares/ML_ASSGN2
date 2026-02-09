@@ -187,7 +187,6 @@ if uploaded_file is not None:
                     st.metric(
                         "Accuracy",
                         f"{accuracy:.4f}",
-                        delta=f"{(accuracy - 0.5):.4f}",
                         help="Overall classification accuracy"
                     )
                 
@@ -235,11 +234,11 @@ if uploaded_file is not None:
                     st.markdown("### 🎯 Confusion Matrix")
                     cm = confusion_matrix(y_test, y_pred)
                     
-                    fig, ax = plt.subplots(figsize=(6, 5))
+                    fig, ax = plt.subplots(figsize=(6, 6))
                     sns.heatmap(
-                        cm, 
-                        annot=True, 
-                        fmt='d', 
+                        cm,
+                        annot=True,
+                        fmt='d',
                         cmap='RdYlGn',
                         ax=ax,
                         cbar_kws={'label': 'Count'},
@@ -265,7 +264,7 @@ if uploaded_file is not None:
                             cmap='RdYlGn',
                             subset=['precision', 'recall', 'f1-score']
                         ).format("{:.4f}"),
-                        height=350,
+                        height=450,
                         use_container_width=True
                     )
                 
@@ -338,4 +337,3 @@ with col2:
     </div>
     """, unsafe_allow_html=True)
 
-# Made with Bob
