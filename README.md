@@ -154,16 +154,23 @@ The app will open in your browser at `http://localhost:8501`
 
 The interactive web application includes:
 
-**Dataset Upload:** Upload test data in CSV format
+  **Dataset Upload:** Upload test data in CSV format
 
-**Model Selection:** Choose from 6 different classification models via dropdown
+  **Model Selection:** Choose from 6 different classification models via dropdown
 
-**Evaluation Metrics Display:** View all 6 metrics (Accuracy, AUC, Precision, Recall, F1, MCC)
+  **Evaluation Metrics Display:** View all 6 metrics (Accuracy, AUC, Precision, Recall, F1, MCC)
 
-**Confusion Matrix:** Visual representation of model predictions
+  **Confusion Matrix:** Visual representation of model predictions
 
-**Classification Report:** Detailed per-class performance metrics
+  **Classification Report:** Detailed per-class performance metrics
 
-**Data Preview:** View uploaded dataset statistics and sample rows
+  **Data Preview:** View uploaded dataset statistics and sample rows
+
+## Deployment
+
+The application is deployed on Streamlit Community Cloud and can be accessed at:
+
+**🔗 Live Application:** [https://mlassgn2-nqbtaep6eveqjnqcxvpu7j.streamlit.app/](https://mlassgn2-nqbtaep6eveqjnqcxvpu7j.streamlit.app/)
+
 
 
