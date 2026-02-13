@@ -96,6 +96,12 @@ with st.sidebar:
     st.markdown("---")
     st.markdown("## 📁 Data Upload")
     
+    # Sample test data download link
+    st.markdown("""
+    📥 **Download Sample Test Data:**
+    [test_data.csv](https://github.com/snehakumares/ML_ASSGN2/blob/main/data/test_data.csv)
+    """)
+    
     uploaded_file = st.file_uploader(
         "Upload Test Dataset",
         type=['csv'],
