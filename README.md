@@ -54,6 +54,9 @@ The project includes:
 - Testing Set: 20% (400 instances)
 - The training script automatically splits the data for model evaluation
 
+### Test Data Link: 
+https://github.com/snehakumares/ML_ASSGN2/blob/main/data/test_data.csv
+
 ## Models Used
 
 ### Comparison Table - Model Performance Metrics
